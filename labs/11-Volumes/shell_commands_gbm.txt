@@ -1,0 +1,56 @@
+❯ docker volume ls
+DRIVER    VOLUME NAME
+local     2dde72d29ba9db9dbbebe1527e78793c506a6ca75c56178f135be3a097f5c0b5
+local     582ba20a40d8e886fc7c552f2e08ceab31045457f0d688c8dd9bec670af518a5
+❯ docker volume create my-vol
+my-vol
+❯ docker volume ls
+DRIVER    VOLUME NAME
+local     2dde72d29ba9db9dbbebe1527e78793c506a6ca75c56178f135be3a097f5c0b5
+local     582ba20a40d8e886fc7c552f2e08ceab31045457f0d688c8dd9bec670af518a5
+local     my-vol
+❯ docker volume inspect my-vol
+[
+    {
+        "CreatedAt": "2024-07-24T10:01:57+02:00",
+        "Driver": "local",
+        "Labels": null,
+        "Mountpoint": "/var/lib/docker/volumes/my-vol/_data",
+        "Name": "my-vol",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+❯ docker run -d \
+    --name=nginxtest \
+    --mount source=my-vol,destination=/usr/share/nginx/html \
+    nginx:latest
+Unable to find image 'nginx:latest' locally
+latest: Pulling from library/nginx
+efc2b5ad9eec: Pull complete
+8fe9a55eb80f: Pull complete
+045037a63be8: Pull complete
+7111b42b4bfa: Pull complete
+3dfc528a4df9: Pull complete
+9e891cdb453b: Pull complete
+0f11e17345c5: Pull complete
+Digest: sha256:6af79ae5de407283dcea8b00d5c37ace95441fd58a8b1d2aa1ed93f5511bb18c
+Status: Downloaded newer image for nginx:latest
+a1b2943a4b03e7d7cd142b718c909efa96d57ae163e6c0149699577513122dbc
+❯ docker run --rm -v my-vol:/app busybox ls -l /app
+Unable to find image 'busybox:latest' locally
+latest: Pulling from library/busybox
+ec562eabd705: Pull complete
+Digest: sha256:9ae97d36d26566ff84e8893c64a6dc4fe8ca6d1144bf5b87b2b85a32def253c7
+Status: Downloaded newer image for busybox:latest
+total 8
+-rw-r--r--    1 root     root           497 May 28 13:22 50x.html
+-rw-r--r--    1 root     root           615 May 28 13:22 index.html
+❯ ls -l /var/lib/docker/volumes/my-vol/_data
+ls: cannot access '/var/lib/docker/volumes/my-vol/_data': Permission denied
+❯ sudo ls -l /var/lib/docker/volumes/my-vol/_data
+total 8
+-rw-r--r-- 1 root root 497 May 28 15:22 50x.html
+-rw-r--r-- 1 root root 615 May 28 15:22 index.html
+❯ docker volume rm my-vol
+Error response from daemon: remove my-vol: volume is in use - [a1b2943a4b03e7d7cd142b718c909efa96d57ae163e6c0149699577513122dbc]
