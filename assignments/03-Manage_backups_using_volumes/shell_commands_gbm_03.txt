@@ -67,3 +67,7 @@ drwxrwxrwx 1 giordie giordie      512 Jul 24 11:58  performance_schema
 drwxrwxrwx 1 giordie giordie      512 Jul 24 11:58  sys
 -rwxrwxrwx 1 giordie giordie 16777216 Jul 24 11:58  undo_001
 -rwxrwxrwx 1 giordie giordie 16777216 Jul 24 11:58  undo_002
+❯ docker ps -a
+CONTAINER ID   IMAGE            COMMAND                  CREATED         STATUS                     PORTS                 NAMES
+b3c8eab310f4   busybox:latest   "cp -r /var/lib/mysq…"   6 minutes ago   Exited (0) 6 minutes ago                         mysqltest2
+115d4d8e9d1d   mysql:latest     "docker-entrypoint.s…"   6 minutes ago   Up 6 minutes               3306/tcp, 33060/tcp   mysqltest
