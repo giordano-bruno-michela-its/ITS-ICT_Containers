@@ -1,0 +1,25 @@
+❯ docker run \
+    -d \
+    -p 4000:80 \
+    --mount type=tmpfs,destination=/var/log/nginx \
+    nginx:latest
+94bf3e8a5fde104de1cec3ed115a7f456161f960a2d97284e68a0acd383e95c6
+❯ docker ps -a
+CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS         PORTS                                   NAMES
+94bf3e8a5fde   nginx:latest   "/docker-entrypoint.…"   5 seconds ago   Up 4 seconds   0.0.0.0:4000->80/tcp, :::4000->80/tcp   clever_rubin
+
+❯ docker exec 94bf3e8a5fde ls -lh /var/log/nginx/access.log
+-rw-r--r-- 1 root root 37K Jul 24 08:58 /var/log/nginx/access.log
+❯ docker ps -a
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS         PORTS                                   NAMES
+94bf3e8a5fde   nginx:latest   "/docker-entrypoint.…"   11 minutes ago   Up 3 minutes   0.0.0.0:4000->80/tcp, :::4000->80/tcp   clever_rubin
+❯ docker stop clever_rubin
+clever_rubin
+❯ docker start clever_rubin
+clever_rubin
+❯ docker exec 94bf3e8a5fde ls -lh /var/log/nginx/access.log
+-rw-r--r-- 1 root root 0 Jul 24 08:59 /var/log/nginx/access.log
+❯ docker stop clever_rubin
+clever_rubin
+❯ docker rm clever_rubin
+clever_rubin
