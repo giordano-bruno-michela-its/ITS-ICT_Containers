@@ -1,0 +1,69 @@
+❯ docker volume create mysql-vol
+mysql-vol
+❯ docker volume ls
+DRIVER    VOLUME NAME
+local     2dde72d29ba9db9dbbebe1527e78793c506a6ca75c56178f135be3a097f5c0b5
+local     582ba20a40d8e886fc7c552f2e08ceab31045457f0d688c8dd9bec670af518a5
+local     mysql-vol
+❯ docker run -d --name=mysqltest --mount source=mysql-vol,destination=/var/lib/mysql mysql:latest
+Unable to find image 'mysql:latest' locally
+latest: Pulling from library/mysql
+d9a40b27c30f: Pull complete
+fe4b01031aab: Pull complete
+aa72c34c4347: Pull complete
+473ade985fa2: Pull complete
+cc168a9482de: Pull complete
+3ca3786815dd: Pull complete
+3e3fac98ea83: Pull complete
+10e5505c3ae4: Pull complete
+a79ade39aab9: Pull complete
+ae34d51c6da2: Pull complete
+Digest: sha256:d8df069848906979fd7511db00dc22efeb0a33a990d87c3c6d3fcdafd6fc6123
+Status: Downloaded newer image for mysql:latest
+4c4b1e4a661194d7761454542019fe82d0e27bf6948d6272584cb2beac802294
+❯ docker ps -a
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS                      PORTS     NAMES
+4c4b1e4a6611   mysql:latest   "docker-entrypoint.s…"   56 seconds ago   Exited (1) 54 seconds ago             mysqltest
+
+=== RESTART ===
+
+❯ docker run -d --name=mysqltest --mount source=mysql-vol,destination=/var/lib/mysql -e MYSQL_ROOT_PASSWORD=passtest mysql:latest
+115d4d8e9d1d3ff4172514b2282eb224bd8e883ff7c97674d9fa71272c25503e
+❯ docker ps -a
+CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS         PORTS                 NAMES
+115d4d8e9d1d   mysql:latest   "docker-entrypoint.s…"   5 seconds ago   Up 4 seconds   3306/tcp, 33060/tcp   mysqltest
+❯ docker run -d --name=mysqltest2 --mount source=mysql-vol,destination=/var/lib/mysql --mount type=bind,source=$(pwd),target=/mysql-bkp busybox:latest cp -r /var/lib/mysql /mysql-bkp
+b3c8eab310f4cf29105a36aba9b7513cc35af5fbd88e6e1eed64c5502cc298ea
+❯ ls
+README.md  mysql  shell_commands_gbm_03.txt  solution
+❯ ls -la mysql
+total 112480
+-rwxrwxrwx 1 giordie giordie  6291456 Jul 24 11:58 '#ib_16384_0.dblwr'
+-rwxrwxrwx 1 giordie giordie 14680064 Jul 24 11:58 '#ib_16384_1.dblwr'
+drwxrwxrwx 1 giordie giordie      512 Jul 24 11:58 '#innodb_redo'
+drwxrwxrwx 1 giordie giordie      512 Jul 24 11:58 '#innodb_temp'
+drwxrwxrwx 1 giordie giordie      512 Jul 24 11:58  .
+drwxrwxrwx 1 giordie giordie      512 Jul 24 11:53  ..
+-rwxrwxrwx 1 giordie giordie       56 Jul 24 11:58  auto.cnf
+-rwxrwxrwx 1 giordie giordie  2943051 Jul 24 11:58  binlog.000001
+-rwxrwxrwx 1 giordie giordie      158 Jul 24 11:58  binlog.000002
+-rwxrwxrwx 1 giordie giordie       32 Jul 24 11:58  binlog.index
+-rwxrwxrwx 1 giordie giordie     1705 Jul 24 11:58  ca-key.pem
+-rwxrwxrwx 1 giordie giordie     1108 Jul 24 11:58  ca.pem
+-rwxrwxrwx 1 giordie giordie     1108 Jul 24 11:58  client-cert.pem
+-rwxrwxrwx 1 giordie giordie     1705 Jul 24 11:58  client-key.pem
+-rwxrwxrwx 1 giordie giordie     5614 Jul 24 11:58  ib_buffer_pool
+-rwxrwxrwx 1 giordie giordie 12582912 Jul 24 11:58  ibdata1
+-rwxrwxrwx 1 giordie giordie 12582912 Jul 24 11:58  ibtmp1
+drwxrwxrwx 1 giordie giordie      512 Jul 24 11:58  mysql
+-rwxrwxrwx 1 giordie giordie 32505856 Jul 24 11:58  mysql.ibd
+lrwxrwxrwx 1 giordie giordie       27 Jul 24 11:58  mysql.sock -> /var/run/mysqld/mysqld.sock
+-rwxrwxrwx 1 giordie giordie      131 Jul 24 11:58  mysql_upgrade_history
+drwxrwxrwx 1 giordie giordie      512 Jul 24 11:58  performance_schema
+-rwxrwxrwx 1 giordie giordie     1705 Jul 24 11:58  private_key.pem
+-rwxrwxrwx 1 giordie giordie      452 Jul 24 11:58  public_key.pem
+-rwxrwxrwx 1 giordie giordie     1108 Jul 24 11:58  server-cert.pem
+-rwxrwxrwx 1 giordie giordie     1709 Jul 24 11:58  server-key.pem
+drwxrwxrwx 1 giordie giordie      512 Jul 24 11:58  sys
+-rwxrwxrwx 1 giordie giordie 16777216 Jul 24 11:58  undo_001
+-rwxrwxrwx 1 giordie giordie 16777216 Jul 24 11:58  undo_002
