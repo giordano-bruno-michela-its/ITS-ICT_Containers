@@ -54,3 +54,18 @@ total 8
 -rw-r--r-- 1 root root 615 May 28 15:22 index.html
 ❯ docker volume rm my-vol
 Error response from daemon: remove my-vol: volume is in use - [a1b2943a4b03e7d7cd142b718c909efa96d57ae163e6c0149699577513122dbc]
+❯ docker ps -a
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS          PORTS     NAMES
+a1b2943a4b03   nginx:latest   "/docker-entrypoint.…"   18 minutes ago   Up 18 minutes   80/tcp    nginxtest
+❯ docker stop a1b2943a4b03
+a1b2943a4b03
+❯ docker rm a1b2943a4b03
+a1b2943a4b03
+❯ docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+❯ docker volume rm my-vol
+my-vol
+❯ docker volume ls
+DRIVER    VOLUME NAME
+local     2dde72d29ba9db9dbbebe1527e78793c506a6ca75c56178f135be3a097f5c0b5
+local     582ba20a40d8e886fc7c552f2e08ceab31045457f0d688c8dd9bec670af518a5

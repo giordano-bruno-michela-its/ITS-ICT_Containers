@@ -1,0 +1,23 @@
+❯ docker run \
+    --rm \
+    -v $(pwd)/app:/app/ \
+    openjdk:7 javac -cp /app /app/Main.java
+❯ ls -l app | grep class
+-rwxrwxrwx 1 giordie giordie 428 Jul 24 10:35 Main.class
+❯ cd app
+❯ ls
+Main.class  Main.java
+❯ lsa
+Permissions Size User    Group   Date Modified Name
+.rwxrwxrwx   428 giordie giordie 24 Jul 10:35  Main.class
+.rwxrwxrwx   146 giordie giordie  4 Jul 11:42  Main.java
+❯ docker run \
+    --rm \
+    -v $(pwd)/app:/app/ \
+    openjdk:7 java -cp / app.Main
+Hello from a Java app!
+❯ docker run \
+    --rm \
+    --mount type=bind,source=$(pwd)/app,target=/app/,readonly \
+    openjdk:7 java -cp / app.Main
+Hello from a Java app!
