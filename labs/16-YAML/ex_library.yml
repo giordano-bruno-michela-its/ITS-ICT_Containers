@@ -1,0 +1,30 @@
+---
+library:
+  name: Libgen
+  street: The free internet
+  street number: 80
+  sections:
+    - name: Science
+      section arguments:
+        - Physics
+        - Mathematics
+      books:
+        - name: A Brief History of Time':' From the Big Bang to Black Holes
+          author: Stephen Hawking
+          publication date: 1988
+          cover image: 'link'
+          excerpt: |
+            If we discover a complete theory, it should in time be 
+            understandable in broad principle by everyone, not just 
+            a few scientists. Then we shall all, philosophers, scientists, 
+            and just ordinary people, be able to take part in the discussion 
+            of why it is that we and the universe exist.
+
+        - name: Godel, Escher, Bach':' An eternal golden braid
+          author: Douglas Hofstadter
+          publication date: 1979
+          cover image: 'link'
+          excerpt: |
+            Strange loops arise when, by moving upwards (or downwards) 
+            through levels of some hierarchical system, 
+            we unexpectedly find ourselves right back where we started.
