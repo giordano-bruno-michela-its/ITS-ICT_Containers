@@ -3,7 +3,7 @@ services:
   web:
     image: wordpress:latest
     environment:
-      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_HOST: db:3306  # name (db) must be the same as below (db:)
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DB_NAME: wordpress
